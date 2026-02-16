@@ -509,26 +509,42 @@ function addShayari(){
   const text = textarea.value.trim();
   if(!text) return;
 
-  let posts = document.getElementById("posts");
+  let shayaris = JSON.parse(localStorage.getItem("shayaris")) || [];
+  shayaris.unshift(text);
+  localStorage.setItem("shayaris", JSON.stringify(shayaris));
 
-  const card = document.createElement("div");
-  card.className = "card";
-  card.innerHTML = `
-    <div class="shayari">${text.replace(/\n/g,"<br>")}</div>
-    <div class="actions">
-      <button onclick="like(this)">❤️ Like <span class="like">0</span></button>
-      <button onclick="copyText(this)">📋 Copy</button>
-      <button onclick="share(this)">🔁 Share</button>
-    </div>
-  `;
-  posts.prepend(card);
   textarea.value = "";
+  renderShayaris();
 }
+
+function renderShayaris(){
+  const posts = document.getElementById("posts");
+  posts.innerHTML = "";
+
+  let shayaris = JSON.parse(localStorage.getItem("shayaris")) || [];
+
+  shayaris.forEach(text=>{
+    const card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = `
+      <div class="shayari">${text.replace(/\n/g,"<br>")}</div>
+      <div class="actions">
+        <button onclick="like(this)">❤️ Like <span class="like">0</span></button>
+        <button onclick="copyText(this)">📋 Copy</button>
+        <button onclick="share(this)">🔁 Share</button>
+      </div>
+    `;
+    posts.appendChild(card);
+  });
+}
+
+document.addEventListener("DOMContentLoaded", renderShayaris);
 </script>
 
 </body>
 
 </html>
+
 
 
 
