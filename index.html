@@ -540,10 +540,31 @@ function renderShayaris(){
 
 document.addEventListener("DOMContentLoaded", renderShayaris);
 </script>
+<!-- Google Sheet Read Script -->
+<script>
+  const SHEET_ID = 1weNIgA20uPW20NuCAIFBOCTd6eLgsPAaRCHSQy20wmc;
+  const SHEET_NAME = "ShayariData";
+
+  fetch(`https://opensheet.elk.sh/${SHEET_ID}/${SHEET_NAME}`)
+    .then(res => res.json())
+    .then(data => {
+      const container = document.getElementById("shayariList");
+      container.innerHTML = "";
+
+      data.forEach(row => {
+        const div = document.createElement("div");
+        div.className = "shayari";
+        div.innerText = row.shayari;
+        container.appendChild(div);
+      });
+    });
+</script>
+</body>
 
 </body>
 
 </html>
+
 
 
 
