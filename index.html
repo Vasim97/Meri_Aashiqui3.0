@@ -450,17 +450,25 @@ function renderShayaris(){
   });
 }
 
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzhZEVbGr3BI_wKob7GR-6OYgx36dAXxrdd9uqWQhb9LrvLI0NgVvOFRfeQ-Efg1T-pNQ/exec";
+
 function addShayari(){
   const textarea = document.getElementById("newShayari");
   const text = textarea.value.trim();
   if(!text) return;
 
-  const shayaris = getShayaris();
-  shayaris.unshift(text);
-  saveShayaris(shayaris);
-
-  textarea.value = "";
-  renderShayaris();
+  fetch(SCRIPT_URL,{
+    method: "POST",
+    body: JSON.stringify({ shayari: text })
+  })
+  .then(res => res.json())
+  .then(() => {
+    textarea.value = "";
+    alert("✅ Shayari Google Sheet me save ho gayi");
+  })
+  .catch(() => {
+    alert("❌ Error: Shayari save nahi hui");
+  });
 }
 
 /* Page load */
@@ -564,6 +572,7 @@ document.addEventListener("DOMContentLoaded", renderShayaris);
 </body>
 
 </html>
+
 
 
 
