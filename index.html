@@ -407,10 +407,6 @@ body.dark .sr-nav{
 </footer>
 
 <script>
-function toggleMode(){
-  document.body.classList.toggle("dark");
-}
-
 function like(btn){
   let s = btn.querySelector(".like");
   s.innerText = parseInt(s.innerText) + 1;
@@ -428,9 +424,6 @@ function share(btn){
 
 /* ===== LOCAL STORAGE SHAYARI LOGIC ===== */
 
-function getShayaris(){
-  return JSON.parse(localStorage.getItem("shayaris")) || [];
-}
 
 function saveShayaris(data){
   localStorage.setItem("shayaris", JSON.stringify(data));
@@ -491,10 +484,51 @@ window.addEventListener("scroll",()=>{
     nav.classList.remove("scrolled");
   }
 });
+
+function toggleMode(){
+  document.body.classList.toggle("dark");
+}
+
+function like(btn){
+  let s = btn.querySelector(".like");
+  s.innerText = Number(s.innerText) + 1;
+}
+
+function copyText(btn){
+  let text = btn.parentElement.previousElementSibling.innerText;
+  navigator.clipboard.writeText(text);
+}
+
+function share(btn){
+  let text = btn.parentElement.previousElementSibling.innerText;
+  window.open("https://wa.me/?text="+encodeURIComponent(text),"_blank");
+}
+
+function addShayari(){
+  const textarea = document.getElementById("newShayari");
+  const text = textarea.value.trim();
+  if(!text) return;
+
+  let posts = document.getElementById("posts");
+
+  const card = document.createElement("div");
+  card.className = "card";
+  card.innerHTML = `
+    <div class="shayari">${text.replace(/\n/g,"<br>")}</div>
+    <div class="actions">
+      <button onclick="like(this)">❤️ Like <span class="like">0</span></button>
+      <button onclick="copyText(this)">📋 Copy</button>
+      <button onclick="share(this)">🔁 Share</button>
+    </div>
+  `;
+  posts.prepend(card);
+  textarea.value = "";
+}
 </script>
 
 </body>
 
 </html>
+
 
 
