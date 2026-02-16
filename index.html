@@ -441,22 +441,24 @@ function share(btn){
   let text=btn.parentElement.previousElementSibling.innerText;
   window.open("https://wa.me/?text="+encodeURIComponent(text),"_blank");
 }
-function addShayari(){
-  let text=document.getElementById("newShayari").value.trim();
-  if(!text) return;
+function renderShayaris(){
+  let shayaris = JSON.parse(localStorage.getItem("shayaris")) || [];
+  let posts = document.getElementById("posts");
+  posts.innerHTML = "";
 
-  let card=document.createElement("div");
-  card.className="card";
-  card.innerHTML=`
-    <div class="shayari">${text.replace(/\n/g,"<br>")}</div>
-    <div class="actions">
-      <button onclick="like(this)">❤️ Like <span class="like">0</span></button>
-      <button onclick="copyText(this)">📋 Copy</button>
-      <button onclick="share(this)">🔁 Share</button>
-    </div>`;
-  document.getElementById("posts").prepend(card);
-  document.getElementById("newShayari").value="";
-}
+  shayaris.forEach(text => {
+    let card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = `
+      <div class="shayari">${text.replace(/\n/g,"<br>")}</div>
+      <div class="actions">
+        <button onclick="like(this)">❤️ Like <span class="like">0</span></button>
+        <button onclick="copyText(this)">📋 Copy</button>
+        <button onclick="share(this)">🔁 Share</button>
+      </div>`;
+    posts.appendChild(card);
+  });
+}    
 </script>
 
 <script>
@@ -480,6 +482,10 @@ window.addEventListener("scroll",()=>{
 });
 </script>
 
+<script>
+renderShayaris();
+</script>
 
 </body>
+
 </html>
