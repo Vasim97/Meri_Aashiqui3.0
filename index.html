@@ -388,22 +388,7 @@ body.dark .sr-nav{
 <div style="text-align:center">
 <button class="toggle" onclick="toggleMode()">🌙 Dark / ☀️ Light</button>
 </div>
-
-<div class="container" id="posts">
-  <div class="card">
-    <div class="shayari">
-      "तेरी एक झलक ही काफ़ी है,<br>
-      मेरे दिल को मुस्कुराने के लिए,<br>
-      वरना ये दिल तो,<br>
-      कभी किसी से खुश हुआ ही नहीं।"
-    </div>
-    <div class="actions">
-      <button onclick="like(this)">❤️ Like <span class="like">0</span></button>
-      <button onclick="copyText(this)">📋 Copy</button>
-      <button onclick="share(this)">🔁 Share</button>
-    </div>
-  </div>
-</div>
+<div class="container" id="posts"></div>
 
 <div class="add-box">
   <textarea id="newShayari" placeholder="Apni shayari likhiye... ❤️"></textarea>
@@ -441,13 +426,24 @@ function share(btn){
   let text=btn.parentElement.previousElementSibling.innerText;
   window.open("https://wa.me/?text="+encodeURIComponent(text),"_blank");
 }
+
+<script>
+function getShayaris(){
+  return JSON.parse(localStorage.getItem("shayaris")) || [];
+}
+
+function saveShayaris(data){
+  localStorage.setItem("shayaris", JSON.stringify(data));
+}
+
 function renderShayaris(){
-  let shayaris = JSON.parse(localStorage.getItem("shayaris")) || [];
-  let posts = document.getElementById("posts");
+  const posts = document.getElementById("posts");
   posts.innerHTML = "";
 
-  shayaris.forEach(text => {
-    let card = document.createElement("div");
+  const shayaris = getShayaris();
+
+  shayaris.forEach(text=>{
+    const card = document.createElement("div");
     card.className = "card";
     card.innerHTML = `
       <div class="shayari">${text.replace(/\n/g,"<br>")}</div>
@@ -455,12 +451,29 @@ function renderShayaris(){
         <button onclick="like(this)">❤️ Like <span class="like">0</span></button>
         <button onclick="copyText(this)">📋 Copy</button>
         <button onclick="share(this)">🔁 Share</button>
-      </div>`;
+      </div>
+    `;
     posts.appendChild(card);
   });
-}    
+}
+
+function addShayari(){
+  const textarea = document.getElementById("newShayari");
+  const text = textarea.value.trim();
+  if(!text) return;
+
+  const shayaris = getShayaris();
+  shayaris.unshift(text);
+  saveShayaris(shayaris);
+
+  textarea.value = "";
+  renderShayaris();
+}
+
+document.addEventListener("DOMContentLoaded", renderShayaris);
 </script>
 
+    
 <script>
 document.querySelectorAll(".sr-nav a").forEach(link=>{
   link.addEventListener("click",function(){
@@ -489,3 +502,4 @@ renderShayaris();
 </body>
 
 </html>
+
