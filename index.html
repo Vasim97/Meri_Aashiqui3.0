@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💖 Meri Aashiqui 3.0 💫</title>
+
+<style>
+:root{
+    --bg1:#ff758c;
+    --bg2:#ff7eb3;
+    --card:#ffffff;
+    --text:#333;
+}
+
+body.dark{
+    --bg1:#141414;
+    --bg2:#1f1f1f;
+    --card:#2b2b2b;
+    --text:#f5f5f5;
+}
+
+body{
+    margin:0;
+    font-family: Georgia, serif;
+    background:linear-gradient(135deg,var(--bg1),var(--bg2));
+    color:var(--text);
+    transition:0.4s;
+    padding-bottom:100px;
+}
+
+/* ===== HEADER ===== */
+header{
+    text-align:center;
+    padding:30px 20px 20px;
+    color:white;
+}
+
+.brand{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+}
+
+.brand img{
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+}
+
+.brand h1{
+    font-size: 38px;
+    margin: 0;
+}
+
+/* .header{
+    padding: 30px 20px 20px;
+    text-align: center;
+} */
+
+
+.brand-title{
+    font-size:3rem;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:12px;
+}
+
+.inline-logo{
+    width:55px;
+    height:55px;
+    border-radius:50%;
+    box-shadow:0 0 15px rgba(255,255,255,0.7);
+}
+
+.tagline{margin-top:8px;}
+
+/* ===== BUTTON ===== */
+.toggle{
+    padding:8px 16px;
+    border:none;
+    border-radius:20px;
+    cursor:pointer;
+    background:#000;
+    color:#fff;
+}
+
+/* ===== SHAYARI ===== */
+.container{max-width:900px;margin:auto;padding:15px;}
+
+.card{
+  background:var(--card);
+  color:var(--text);
+  max-width:720px;
+  margin:40px auto;
+  padding:35px 30px;
+  border-radius:22px;
+  box-shadow:0 15px 30px rgba(0,0,0,0.15);
+}
+
+.shayari{
+  font-size:1.35rem;
+  line-height:2;
+  text-align:center;
+}
+
+.actions{text-align:center;margin-top:20px;}
+
+button{
+    background:#ff4d6d;
+    border:none;
+    color:white;
+    padding:8px 16px;
+    margin:4px;
+    border-radius:20px;
+    cursor:pointer;
+}
+
+.shayari-wrapper{
+    margin-top: 25px;
+    margin-bottom: 80px; /* footer space */
+}
+
+.shayari-card{
+    max-width: 720px;
+    margin: auto;
+    padding: 30px;
+    border-radius: 22px;
+    background: #ffffff;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+}
+
+.shayari-actions{
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 22px;
+}
+
+.shayari-actions button{
+    padding: 10px 18px;
+    border-radius: 25px;
+    font-size: 14px;
+}
+
+
+/* ===== ADD SHAYARI ===== */
+.add-box{
+  max-width:720px;
+  margin:20px auto;
+  padding:15px;
+}
+
+.add-box textarea{
+  width:100%;
+  height:80px;
+  border-radius:14px;
+  padding:12px;
+  font-size:1rem;
+  border:none;
+}
+
+.add-box button{
+  padding:12px;
+  font-size:15px;
+  border-radius:30px;
+  width:100%;
+  margin-top:12px;
+}
+
+/* ===== FOOTER ===== */
+.site-footer{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: #ff7fa0;   /* solid pink */
+    border-top: 1px solid rgba(255,255,255,0.3);
+    z-index: 999;
+}
+
+.footer-inner{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    color: white;
+    padding: 10px;
+    font-size: 14px;
+    animation: glowDay 3s infinite alternate;
+}
+
+
+.footer-brand img{
+    width:22px;
+    height:22px;
+    border-radius:50%;
+    animation:heartbeat 2s infinite;
+}
+
+/* ===== MUSIC ===== */
+.music-player{text-align:center;margin-top:6px;}
+.music-player button{
+  font-size:12px;
+  padding:6px 14px;
+}
+
+/* ===== DARK FOOTER ===== */
+body.dark .site-footer{
+    background:rgba(10,15,30,0.6);
+}
+
+body.dark .footer-inner{
+    animation:glowNight 3s infinite alternate;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes heartbeat{
+    0%,100%{transform:scale(1)}
+    50%{transform:scale(1.15)}
+}
+
+@keyframes glowDay{
+    from{text-shadow:0 0 6px hotpink}
+    to{text-shadow:0 0 14px deeppink}
+}
+
+@keyframes glowNight{
+    from{text-shadow:0 0 6px #6fa8ff}
+    to{text-shadow:0 0 16px #9fc5ff}
+}
+
+/* ===== SARKARI RESULT STYLE HEADER (PINK VERSION) ===== */
+.sr-header{
+    background:#ff7ea8; /* same pink tone */
+    text-align:center;
+    padding:25px 10px 20px;
+    color:white;
+}
+
+.sr-inner{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:14px;
+}
+
+.sr-logo{
+    width:55px;
+    height:55px;
+    border-radius:50%;
+    box-shadow:0 0 8px rgba(255,255,255,0.6);
+}
+
+.sr-header h1{
+    margin:0;
+    font-size:44px;
+    font-weight:700;
+    letter-spacing:1px;
+}
+
+.sr-subtitle{
+    margin-top:8px;
+    font-size:18px;
+    font-weight:500;
+}
+
+/* Mobile responsive */
+@media(max-width:600px){
+    .sr-header h1{
+        font-size:30px;
+    }
+    .sr-logo{
+        width:45px;
+        height:45px;
+    }
+}
+
+
+/* ===== SARKARI RESULT STYLE NAV BAR ===== */
+.sr-nav{
+    position:sticky;
+    top:0;
+    z-index:1000;
+
+    background:#ff4f7b;
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:28px;
+    padding:10px 5px;
+
+    border-top:1px solid rgba(255,255,255,0.6);
+
+    /* 🔥 NEW: soft shadow */
+    box-shadow:0 4px 10px rgba(0,0,0,0.15);
+}
+
+body.dark .sr-nav{
+    background:#5a0f1f;
+    box-shadow:0 4px 12px rgba(0,0,0,0.6);
+}
+
+
+/* nav links */
+.sr-nav a{
+    color:white;
+    text-decoration:none;
+    font-size:16px;
+    font-weight:600;
+    padding:6px 2px;
+    position:relative;
+}
+
+/* hover underline */
+.sr-nav a::after{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:-4px;
+    width:0%;
+    height:2px;
+    background:white;
+    transition:0.3s;
+}
+
+.sr-nav a:hover::after{
+    width:100%;
+}
+
+/* active underline */
+.sr-nav a.active::after{
+    width:100%;
+}
+
+.sr-nav a.active{
+    position:relative;
+    color:#fff;
+    animation:navGlow 1.8s infinite alternate;
+}
+
+/* heart beat */
+.sr-nav a.active::before{
+    content:"❤️";
+    position:absolute;
+    left:-18px;
+    animation:heartBeat 1.4s infinite;
+}
+
+@keyframes heartBeat{
+    0%,100%{transform:scale(1)}
+    50%{transform:scale(1.3)}
+}
+
+
+/* ===== DARK MODE NAV ===== */
+body.dark .sr-nav{
+    background:#5a0f1f; /* deep maroon */
+    border-top:1px solid rgba(255,255,255,0.25)}
+
+
+
+</style>
+</head>
+
+<body>
+
+<header class="sr-header">
+  <div class="sr-inner">
+    <img src="logo.jpeg" class="sr-logo">
+    <h1>Meri Aashiqui 3.0</h1>
+  </div>
+  <p class="sr-subtitle">💌 Dil Se Likhi Hui Mohabbat 💌</p>
+</header>
+
+<nav class="sr-nav">
+  <a href="#" class="active">
+  Home
+</a>
+  <a href="#">Shayari</a>
+  <a href="#">Love Status</a>
+  <a href="#">Submit</a>
+  <a href="#">About</a>
+</nav>
+
+
+<div style="text-align:center">
+<button class="toggle" onclick="toggleMode()">🌙 Dark / ☀️ Light</button>
+</div>
+
+<div class="container" id="posts">
+  <div class="card">
+    <div class="shayari">
+      "तेरी एक झलक ही काफ़ी है,<br>
+      मेरे दिल को मुस्कुराने के लिए,<br>
+      वरना ये दिल तो,<br>
+      कभी किसी से खुश हुआ ही नहीं।"
+    </div>
+    <div class="actions">
+      <button onclick="like(this)">❤️ Like <span class="like">0</span></button>
+      <button onclick="copyText(this)">📋 Copy</button>
+      <button onclick="share(this)">🔁 Share</button>
+    </div>
+  </div>
+</div>
+
+<div class="add-box">
+  <textarea id="newShayari" placeholder="Apni shayari likhiye... ❤️"></textarea>
+  <button onclick="addShayari()">➕ Post Shayari</button>
+</div>
+
+<footer class="site-footer">
+
+  <div class="footer-inner">
+    © 2026 •
+    <span class="footer-brand">
+      <img src="logo.jpeg"> Meri Aashiqui 3.0
+    </span>
+    • Love Forever ❤️
+  </div>
+</footer>
+
+<script>
+function toggleMusic(){
+  const m=document.getElementById("bgMusic");
+  m.paused ? m.play() : m.pause();
+}
+function toggleMode(){
+  document.body.classList.toggle("dark");
+}
+function like(btn){
+  let s=btn.querySelector(".like");
+  s.innerText=parseInt(s.innerText)+1;
+}
+function copyText(btn){
+  let text=btn.parentElement.previousElementSibling.innerText;
+  navigator.clipboard.writeText(text);
+}
+function share(btn){
+  let text=btn.parentElement.previousElementSibling.innerText;
+  window.open("https://wa.me/?text="+encodeURIComponent(text),"_blank");
+}
+function addShayari(){
+  let text=document.getElementById("newShayari").value.trim();
+  if(!text) return;
+
+  let card=document.createElement("div");
+  card.className="card";
+  card.innerHTML=`
+    <div class="shayari">${text.replace(/\n/g,"<br>")}</div>
+    <div class="actions">
+      <button onclick="like(this)">❤️ Like <span class="like">0</span></button>
+      <button onclick="copyText(this)">📋 Copy</button>
+      <button onclick="share(this)">🔁 Share</button>
+    </div>`;
+  document.getElementById("posts").prepend(card);
+  document.getElementById("newShayari").value="";
+}
+</script>
+
+<script>
+document.querySelectorAll(".sr-nav a").forEach(link=>{
+  link.addEventListener("click",function(){
+    document.querySelectorAll(".sr-nav a")
+      .forEach(a=>a.classList.remove("active"));
+    this.classList.add("active");
+  });
+});
+</script>
+
+<script>
+window.addEventListener("scroll",()=>{
+  const nav=document.querySelector(".sr-nav");
+  if(window.scrollY>40){
+    nav.classList.add("scrolled");
+  }else{
+    nav.classList.remove("scrolled");
+  }
+});
+</script>
+
+
+</body>
+</html>
