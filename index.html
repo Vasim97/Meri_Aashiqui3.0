@@ -407,27 +407,27 @@ body.dark .sr-nav{
 </footer>
 
 <script>
-function toggleMusic(){
-  const m=document.getElementById("bgMusic");
-  m.paused ? m.play() : m.pause();
-}
 function toggleMode(){
   document.body.classList.toggle("dark");
 }
+
 function like(btn){
-  let s=btn.querySelector(".like");
-  s.innerText=parseInt(s.innerText)+1;
-}
-function copyText(btn){
-  let text=btn.parentElement.previousElementSibling.innerText;
-  navigator.clipboard.writeText(text);
-}
-function share(btn){
-  let text=btn.parentElement.previousElementSibling.innerText;
-  window.open("https://wa.me/?text="+encodeURIComponent(text),"_blank");
+  let s = btn.querySelector(".like");
+  s.innerText = parseInt(s.innerText) + 1;
 }
 
-<script>
+function copyText(btn){
+  let text = btn.parentElement.previousElementSibling.innerText;
+  navigator.clipboard.writeText(text);
+}
+
+function share(btn){
+  let text = btn.parentElement.previousElementSibling.innerText;
+  window.open("https://wa.me/?text=" + encodeURIComponent(text), "_blank");
+}
+
+/* ===== LOCAL STORAGE SHAYARI LOGIC ===== */
+
 function getShayaris(){
   return JSON.parse(localStorage.getItem("shayaris")) || [];
 }
@@ -442,7 +442,7 @@ function renderShayaris(){
 
   const shayaris = getShayaris();
 
-  shayaris.forEach(text=>{
+  shayaris.forEach(text => {
     const card = document.createElement("div");
     card.className = "card";
     card.innerHTML = `
@@ -470,11 +470,10 @@ function addShayari(){
   renderShayaris();
 }
 
+/* Page load */
 document.addEventListener("DOMContentLoaded", renderShayaris);
-</script>
 
-    
-<script>
+/* Nav active */
 document.querySelectorAll(".sr-nav a").forEach(link=>{
   link.addEventListener("click",function(){
     document.querySelectorAll(".sr-nav a")
@@ -482,9 +481,8 @@ document.querySelectorAll(".sr-nav a").forEach(link=>{
     this.classList.add("active");
   });
 });
-</script>
 
-<script>
+/* Scroll effect */
 window.addEventListener("scroll",()=>{
   const nav=document.querySelector(".sr-nav");
   if(window.scrollY>40){
@@ -495,11 +493,8 @@ window.addEventListener("scroll",()=>{
 });
 </script>
 
-<script>
-renderShayaris();
-</script>
-
 </body>
 
 </html>
+
 
