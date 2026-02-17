@@ -205,7 +205,7 @@ body.dark .sr-nav{
 
 <div class="add-box">
   <textarea id="newShayari" placeholder="Apni shayari likhiye... ❤️"></textarea>
-  <button onclick="addShayari()">➕ Post Shayari</button>
+  <button id="postBtn">➕ Post Shayari</button>
 </div>
 
 <footer>© 2026 • Meri Aashiqui 3.0 ❤️</footer>
@@ -250,6 +250,10 @@ window.addShayari = async function(){
   loadShayaris();
 };
 
+document.getElementById("postBtn")
+  .addEventListener("click", addShayari);
+
+  
 /* ===== LOAD SHAYARI ===== */
 async function loadShayaris(){
   const posts=document.getElementById("posts");
@@ -300,6 +304,7 @@ function toggleMode(){
 
 </body>
 </html>
+
 
 
 
