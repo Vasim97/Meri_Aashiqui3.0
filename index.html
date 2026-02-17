@@ -62,6 +62,54 @@ body.dark .card{
 body.dark .shayari{
   color:#ffffff;
 }
+
+/* ===== MOBILE HEADER FIX ===== */
+header,
+.sr-header{
+  position: relative;
+  z-index: 10;
+}
+
+/* Mobile specific */
+@media (max-width: 768px) {
+
+  header,
+  .sr-header{
+    padding-top: 20px;
+    padding-bottom: 15px;
+  }
+
+  .sr-inner{
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .sr-header h1{
+    font-size: 28px;
+    text-align: center;
+  }
+
+  .sr-subtitle{
+    font-size: 14px;
+  }
+}
+/* Nav overlap fix */
+.sr-nav{
+  position: sticky;
+  top: 0;
+  z-index: 9;
+}
+body{
+  padding-top: 0;
+}
+
+@media (max-width: 768px){
+  .sr-logo{
+    width:40px;
+    height:40px;
+  }
+}
+
 </style>
 </head>
 
@@ -153,4 +201,5 @@ function toggleMode(){
 
 </body>
 </html>
+
 
