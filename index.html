@@ -63,6 +63,11 @@ body.dark .shayari{
   color:#ffffff;
 }
 
+body.dark .actions button{
+  background:#ff4d6d;
+  color:#fff;
+}  
+
 /* ===== HEADER ===== */
 .sr-header{
   background:#ff7ea8;
@@ -103,6 +108,7 @@ body.dark .shayari{
   justify-content:center;
   gap:30px;
   padding:10px 5px;
+  border-top:3px solid rgba(255,255,255,0.4);
 }
 
 .sr-nav a{
@@ -125,19 +131,39 @@ body.dark .shayari{
 
 /* ===== MOBILE FIX ===== */
 @media(max-width:600px){
+
+  .sr-header{
+    padding:15px 10px;
+  }
+
   .sr-inner{
     flex-direction:column;
+    gap:8px;
+  }
+
+  .sr-logo{
+    width:42px;
+    height:42px;
   }
 
   .sr-header h1{
-    font-size:24px;
+    font-size:22px;
+    text-align:center;
+  }
+
+  .sr-subtitle{
+    font-size:14px;
+    text-align:center;
   }
 
   .sr-nav{
-    gap:16px;
-    flex-wrap:wrap;
+    gap:12px;
+    padding:10px;
   }
-}
+
+  .sr-nav a{
+    font-size:14px;
+    padding:6p
 
 /* ===== DARK MODE ===== */
 body.dark .sr-header{
@@ -257,6 +283,7 @@ function toggleMode(){
 
 </body>
 </html>
+
 
 
 
