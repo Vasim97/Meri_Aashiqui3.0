@@ -263,25 +263,23 @@ async function loadShayaris(){
   const snapshot=await getDocs(q);
 
   snapshot.forEach(doc=>{
-    const card=document.createElement("div");
-    card.className="card";
-    card.innerHTML = `
-  <div class="shayari">${doc.data().text.replace(/\n/g,"<br>")}</div>
-  <div class="actions">
-    <button onclick="like(this)">❤️ Like</button>
-    <button onclick="copyText(this)">📋 Copy</button>
-  </div>
-`;
-
-    `;
-    posts.appendChild(card);
-  });
+  const card=document.createElement("div");
+  card.className="card";
+  card.innerHTML = `
+    <div class="shayari">${doc.data().text.replace(/\n/g,"<br>")}</div>
+    <div class="actions">
+      <button onclick="like(this)">❤️ Like</button>
+      <button onclick="copyText(this)">📋 Copy</button>
+    </div>
+  `;
+  posts.appendChild(card);
+});
 }
 
 loadShayaris();
-// button ko JS se connect karo
-document.getElementById("postBtn")
-  .addEventListener("click", addShayari);
+// // button ko JS se connect karo
+// document.getElementById("postBtn")
+//   .addEventListener("click", addShayari);
 
 
 // ❤️ LIKE BUTTON
@@ -308,6 +306,7 @@ function toggleMode(){
 
 </body>
 </html>
+
 
 
 
