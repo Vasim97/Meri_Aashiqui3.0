@@ -191,6 +191,15 @@ body.dark .sr-nav{
   <button class="toggle" onclick="toggleMode()">🌙 Dark / ☀️ Light</button>
 </div>
 
+<div style="text-align:center; margin:15px;">
+  <button id="loginBtn">🔐 Login</button>
+  <button id="logoutBtn" style="display:none;">🚪 Logout</button>
+
+  <p id="loginMsg" style="display:none;color:red;">
+    Shayari post karne ke liye login zaroori hai
+  </p>
+</div>
+  
 <div class="container" id="posts"></div>
 
 <div class="add-box">
@@ -205,6 +214,14 @@ body.dark .sr-nav{
 
 <!-- 🔥 FIREBASE SCRIPT -->
 <script type="module">
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
+
+
 import {
   getAuth,
   onAuthStateChanged
@@ -234,6 +251,49 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
+// 🔐 LOGIN
+document.getElementById("loginBtn").addEventListener("click", async () => {
+  const email = prompt("Enter Email:");
+  const password = prompt("Enter Password:");
+
+  if (!email || !password) return;
+
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+    alert("Login successful ❤️");
+  } catch (err) {
+    alert("Login failed ❌\n" + err.message);
+  }
+});
+
+// 🚪 LOGOUT
+document.getElementById("logoutBtn").addEventListener("click", async () => {
+  await signOut(auth);
+  alert("Logged out");
+});
+
+ onAuthStateChanged(auth, (user) => {
+  const postBtn = document.getElementById("postBtn");
+  const loginBtn = document.getElementById("loginBtn");
+  const logoutBtn = document.getElementById("logoutBtn");
+  const loginMsg = document.getElementById("loginMsg");
+
+  if (user) {
+    // ✅ logged in
+    postBtn.style.display = "block";
+    logoutBtn.style.display = "inline-block";
+    loginBtn.style.display = "none";
+    loginMsg.style.display = "none";
+  } else {
+    // ❌ not logged in
+    postBtn.style.display = "none";
+    logoutBtn.style.display = "none";
+    loginBtn.style.display = "inline-block";
+    loginMsg.style.display = "block";
+  }
+});
+ 
+  
 onAuthStateChanged(auth, (user) => {
   const postBtn = document.getElementById("postBtn");
   const loginMsg = document.getElementById("loginMsg");
@@ -316,6 +376,7 @@ function toggleMode(){
 
 </body>
 </html>
+
 
 
 
