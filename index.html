@@ -195,6 +195,9 @@ body.dark .sr-nav{
 
 <div class="add-box">
   <textarea id="newShayari" placeholder="Apni shayari likhiye... ❤️"></textarea>
+  <p id="loginMsg" style="display:none;color:red;text-align:center;">
+  Shayari post karne ke liye login zaroori hai
+  </p>
   <button id="postBtn">➕ Post Shayari</button>
 </div>
 
@@ -202,6 +205,11 @@ body.dark .sr-nav{
 
 <!-- 🔥 FIREBASE SCRIPT -->
 <script type="module">
+import {
+  getAuth,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
 import {
   getFirestore,
@@ -222,8 +230,24 @@ const firebaseConfig = {
   appId: "1:907742270444:web:da49bef4b83c75c3e5a6c9"
 };
 
-const app = initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);  
+const auth = getAuth(app);
 const db = getFirestore(app);
+
+onAuthStateChanged(auth, (user) => {
+  const postBtn = document.getElementById("postBtn");
+  const loginMsg = document.getElementById("loginMsg");
+
+  if (user) {
+    // ✅ logged in
+    postBtn.style.display = "block";
+    loginMsg.style.display = "none";
+  } else {
+    // ❌ not logged in
+    postBtn.style.display = "none";
+    loginMsg.style.display = "block";
+  }
+});
 
 // ADD SHAYARI
 async function addShayari(){
@@ -292,6 +316,7 @@ function toggleMode(){
 
 </body>
 </html>
+
 
 
 
