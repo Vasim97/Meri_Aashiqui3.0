@@ -131,7 +131,6 @@ body.dark .actions button{
 
 /* ===== MOBILE FIX ===== */
 @media(max-width:600px){
-
   .sr-header{
     padding:15px 10px;
   }
@@ -141,29 +140,20 @@ body.dark .actions button{
     gap:8px;
   }
 
-  .sr-logo{
-    width:42px;
-    height:42px;
-  }
-
   .sr-header h1{
     font-size:22px;
-    text-align:center;
-  }
-
-  .sr-subtitle{
-    font-size:14px;
-    text-align:center;
   }
 
   .sr-nav{
     gap:12px;
-    padding:10px;
+    flex-wrap:wrap;
   }
 
   .sr-nav a{
     font-size:14px;
-    padding:6p
+    padding:6px;
+  }
+}
 
 /* ===== DARK MODE ===== */
 body.dark .sr-header{
@@ -235,69 +225,66 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-/* ===== ADD SHAYARI ===== */
-window.addShayari = async function(){
+// ADD SHAYARI
+async function addShayari(){
   const textarea = document.getElementById("newShayari");
   const text = textarea.value.trim();
   if(!text) return;
 
   await addDoc(collection(db,"shayaris"),{
-    text:text,
-    createdAt:serverTimestamp()
+    text,
+    createdAt: serverTimestamp()
   });
 
   textarea.value="";
   loadShayaris();
-};
+}
 
-document.getElementById("postBtn")
-  .addEventListener("click", addShayari);
-
-  
-/* ===== LOAD SHAYARI ===== */
+// LOAD SHAYARI
 async function loadShayaris(){
-  const posts=document.getElementById("posts");
-  posts.innerHTML="";
+  const posts = document.getElementById("posts");
+  posts.innerHTML = "";
 
-  const q=query(collection(db,"shayaris"),orderBy("createdAt","desc"));
-  const snapshot=await getDocs(q);
+  const q = query(collection(db,"shayaris"), orderBy("createdAt","desc"));
+  const snapshot = await getDocs(q);
 
   snapshot.forEach(doc=>{
-  const card=document.createElement("div");
-  card.className="card";
-  card.innerHTML = `
-    <div class="shayari">${doc.data().text.replace(/\n/g,"<br>")}</div>
-    <div class="actions">
-      <button onclick="like(this)">❤️ Like</button>
-      <button onclick="copyText(this)">📋 Copy</button>
-    </div>
-  `;
-  posts.appendChild(card);
-});
+    const card = document.createElement("div");
+    card.className="card";
+    card.innerHTML = `
+      <div class="shayari">${doc.data().text.replace(/\n/g,"<br>")}</div>
+      <div class="actions">
+        <button class="like-btn">❤️ Like <span>0</span></button>
+        <button class="copy-btn">📋 Copy</button>
+      </div>
+    `;
+    posts.appendChild(card);
+  });
+}
 
+document.getElementById("postBtn").addEventListener("click", addShayari);
 loadShayaris();
-// // button ko JS se connect karo
-// document.getElementById("postBtn")
-//   .addEventListener("click", addShayari);
-
-
-// ❤️ LIKE BUTTON
-window.like = function(btn){
-  btn.innerText = "❤️ Liked";
-};
-
-// 📋 COPY BUTTON
-window.copyText = function(btn){
-  const text = btn.closest(".card")
-                  .querySelector(".shayari")
-                  .innerText;
-  navigator.clipboard.writeText(text);
-  alert("Copied ❤️");
-};
-
 </script>
 
 <script>
+document.addEventListener("click",function(e){
+
+  // LIKE
+  if(e.target.classList.contains("like-btn")){
+    const span = e.target.querySelector("span");
+    span.innerText = Number(span.innerText) + 1;
+  }
+
+  // COPY
+  if(e.target.classList.contains("copy-btn")){
+    const text = e.target.closest(".card")
+                  .querySelector(".shayari").innerText;
+    navigator.clipboard.writeText(text);
+    alert("Copied ❤️");
+  }
+
+});
+
 function toggleMode(){
   document.body.classList.toggle("dark");
 }
@@ -305,6 +292,7 @@ function toggleMode(){
 
 </body>
 </html>
+
 
 
 
