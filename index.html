@@ -188,7 +188,7 @@ body.dark .sr-nav{
 
   
 <div style="text-align:center">
-  <button class="toggle" onclick="toggleMode()">🌙 Dark / ☀️ Light</button>
+  <button class="toggle" id="darkBtn">🌙 Dark / ☀️ Light</button>
 </div>
 
 <div style="text-align:center; margin:15px;">
@@ -219,8 +219,25 @@ import {
   getAuth,
   signInWithEmailAndPassword,
   signOut,
-  onAuthStateChanged
+  onAuthStateChanged,
+  createUserWithEmailAndPassword
 } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
+
+
+// 📝 SIGNUP
+document.getElementById("signupBtn").addEventListener("click", async () => {
+  const email = prompt("Enter Email for Signup:");
+  const password = prompt("Create Password (min 6 chars):");
+
+  if (!email || !password) return;
+
+  try {
+    await createUserWithEmailAndPassword(auth, email, password);
+    alert("Signup successful ❤️ Now you are logged in");
+  } catch (err) {
+    alert("Signup failed ❌\n" + err.message);
+  }
+});
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
 import {
@@ -354,23 +371,12 @@ document.addEventListener("click",function(e){
 function toggleMode(){
   document.body.classList.toggle("dark");
 }
+
+document.getElementById("darkBtn").addEventListener("click", () => {
+  document.body.classList.toggle("dark");
+});
+
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
