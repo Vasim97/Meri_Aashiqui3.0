@@ -215,6 +215,9 @@ body.dark .sr-nav{
 
 <!-- 🔥 FIREBASE SCRIPT -->
 <script type="module">
+const ADMIN_EMAIL = "vasimmzp1997@gmail.com";
+import { deleteDoc } 
+from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";  
 import {
   getAuth,
   signInWithEmailAndPassword,
@@ -343,6 +346,18 @@ async function loadShayaris(){
         <button class="copy-btn">📋 Copy</button>
       </div>
     `;
+    if (auth.currentUser && auth.currentUser.email === ADMIN_EMAIL) {
+  const delBtn = document.createElement("button");
+  delBtn.innerText = "🗑 Delete";
+  delBtn.style.background = "red";
+  delBtn.style.color = "white";
+  delBtn.onclick = async () => {
+    await deleteDoc(doc(db, "shayaris", doc.id));
+    loadShayaris();
+  };
+  card.querySelector(".actions").appendChild(delBtn);
+}
+
     posts.appendChild(card);
   });
 }
@@ -380,3 +395,4 @@ document.getElementById("darkBtn").addEventListener("click", () => {
 
 </body>
 </html>
+
