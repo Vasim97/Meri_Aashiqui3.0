@@ -329,45 +329,34 @@ async function addShayari(){
 }
 
 // LOAD SHAYARI
-async function loadShayaris() {
+async function loadShayaris(){
   const posts = document.getElementById("posts");
   posts.innerHTML = "";
 
-  const q = query(collection(db, "shayaris"), orderBy("createdAt", "desc"));
+  const q = query(collection(db,"shayaris"), orderBy("createdAt","desc"));
   const snapshot = await getDocs(q);
 
-  snapshot.forEach((docSnap) => {
-    const data = docSnap.data();
-
+  snapshot.forEach(doc=>{
     const card = document.createElement("div");
-    card.className = "card";
-
+    card.className="card";
     card.innerHTML = `
-      <div class="shayari">${data.text}</div>
-      <div class="actions"></div>
+      <div class="shayari">${doc.data().text.replace(/\n/g,"<br>")}</div>
+      <div class="actions">
+        <button class="like-btn">❤️ Like <span>0</span></button>
+        <button class="copy-btn">📋 Copy</button>
+      </div>
     `;
-
-    // 👑 ADMIN DELETE
     if (auth.currentUser && auth.currentUser.email === ADMIN_EMAIL) {
-      const delBtn = document.createElement("button");
-      delBtn.innerText = "🗑 Delete";
-      delBtn.style.background = "red";
-      delBtn.style.color = "white";
-      delBtn.style.border = "none";
-      delBtn.style.padding = "5px 10px";
-      delBtn.style.cursor = "pointer";
-
-      delBtn.addEventListener("click", async () => {
-        const ok = confirm("Are you sure you want to delete?");
-        if (!ok) return;
-
-        await deleteDoc(doc(db, "shayaris", docSnap.id));
-        alert("Deleted ✅");
-        loadShayaris();
-      });
-
-      card.querySelector(".actions").appendChild(delBtn);
-    }
+  const delBtn = document.createElement("button");
+  delBtn.innerText = "🗑 Delete";
+  delBtn.style.background = "red";
+  delBtn.style.color = "white";
+  delBtn.onclick = async () => {
+    await deleteDoc(doc(db, "shayaris", doc.id));
+    loadShayaris();
+  };
+  card.querySelector(".actions").appendChild(delBtn);
+}
 
     posts.appendChild(card);
   });
@@ -406,5 +395,3 @@ document.getElementById("darkBtn").addEventListener("click", () => {
 
 </body>
 </html>
-
-
